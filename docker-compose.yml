@@ -54,6 +54,18 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
 
+  bridge:
+    build: .
+    volumes:
+      - .:/usr/src/app
+    container_name: python-bridge
+    restart: always
+    depends_on:
+      - grafana
+    links:
+      - influxdb
+      - mosquitto
+
 volumes:
   grafana_data: {}
   influxdb_data: {}
